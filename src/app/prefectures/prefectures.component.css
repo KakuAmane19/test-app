@@ -1,0 +1,16 @@
+#prefectures {
+  margin: 16px 8px;
+}
+
+p {
+  font-size: small;
+}
+
+.option {
+  display:inline-block;
+  margin: 8px;
+}
+
+input {
+  margin-right: 8px;
+}
