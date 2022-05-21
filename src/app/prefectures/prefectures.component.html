@@ -1,17 +1,13 @@
 <div id="prefectures">
   <p>都道府県</p>
   <div id="options">
-    <div class="option"><input type="checkbox" name="" id="">A</div>
-    <div class="option"><input type="checkbox" name="" id="">B</div>
-    <div class="option"><input type="checkbox" name="" id="">C</div>
-    <div class="option"><input type="checkbox" name="" id="">D</div>
-    <div class="option"><input type="checkbox" name="" id="">E</div>
-    <div class="option"><input type="checkbox" name="" id="">F</div>
-    <div class="option"><input type="checkbox" name="" id="">B</div>
-    <div class="option"><input type="checkbox" name="" id="">C</div>
-    <div class="option"><input type="checkbox" name="" id="">D</div>
-    <div class="option"><input type="checkbox" name="" id="">E</div>
-    <div class="option"><input type="checkbox" name="" id="">F</div>
+    <div class="option" *ngFor="let prefecture of prefectureNames">
+      <input
+        type="checkbox"
+        name="{{ prefecture.prefName }}"
+        id="{{ prefecture.prefCode }}"
+      />
+      {{ prefecture.prefName }}
+    </div>
   </div>
 </div>
-
