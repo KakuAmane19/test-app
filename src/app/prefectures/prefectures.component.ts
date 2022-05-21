@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrefectureService } from '../prefecture.service';
 
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-
-import { Data } from '../Data';
-import { PrefectureName } from '../PrefectureName';
 import { Option } from '../Option';
 
 @Component({
@@ -15,7 +10,6 @@ import { Option } from '../Option';
 })
 export class PrefecturesComponent implements OnInit {
   prefectures: Option[] = [];
-  selectee: Option[] = [];
 
   constructor(private prefectureService: PrefectureService) {}
 
@@ -39,7 +33,6 @@ export class PrefecturesComponent implements OnInit {
             selected: false,
           })
         );
-        console.log(this.prefectures);
       },
       (err) => {
         console.error(err);
@@ -52,13 +45,7 @@ export class PrefecturesComponent implements OnInit {
    * @return nothing
    */
   checkBox(): void {
-    this.prefectures.forEach((prefecture) => {
-      if ('selected' in prefecture && prefecture.selected) {
-        this.selectee.push(prefecture);
-      }
-    });
-
-    console.log(this.selectee);
-    this.selectee = [];
+    const result = this.prefectures.filter((prefecture) => prefecture.selected);
+    this.prefectureService.setSelectees(result);
   }
 }

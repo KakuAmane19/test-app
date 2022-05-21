@@ -8,6 +8,7 @@ import { PrefecturesComponent } from './prefectures/prefectures.component';
 import { GraphComponent } from './graph/graph.component';
 import { HeaderComponent } from './header/header.component';
 import { PrefectureService } from './prefecture.service';
+import { PopulationCompositionService } from './population-composition.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { PrefectureService } from './prefecture.service';
     HeaderComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule],
-  providers: [PrefectureService],
+  providers: [PrefectureService,PopulationCompositionService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

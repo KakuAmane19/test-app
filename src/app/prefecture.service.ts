@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
-import { Data } from './Data';
-import { PrefectureName } from './PrefectureName';
+import { PrefectureBaseData } from './PrefectureBaseData';
+import { Option } from './Option';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,8 @@ export class PrefectureService {
       'X-API-KEY': '4h1WnyWHVxUtV5xvjNSqPj2cUjJXZyg5e7PNN7fo',
     }),
   };
-  result: PrefectureName[] = [];
+
+  selectees: Option[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +28,26 @@ export class PrefectureService {
    * @return result - 県名（PrefectureName型）の配列
    * @see PrefectureName
    */
-  getPrefectureNames(): Observable<Data> {
-    return this.http.get<Data>(this.apiUrl, this.httpOptions);
+  getPrefectureNames(): Observable<PrefectureBaseData> {
+    return this.http.get<PrefectureBaseData>(this.apiUrl, this.httpOptions);
+  }
+
+  /**
+   * 選ばれた県を保存
+   *
+   * @param selectees チェックが入れられた県
+   * @return void
+   */
+  setSelectees(selectees: Option[]): void {
+    this.selectees = selectees;
+  }
+
+  /**
+   * 選ばれている県の一覧を送る
+   *
+   * @return result - 県名（PrefectureName型）の配列
+   */
+  getSelectee(): Option[] {
+    return this.selectees;
   }
 }
