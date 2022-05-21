@@ -6,6 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { Data } from '../Data';
 import { PrefectureName } from '../PrefectureName';
+import { Option } from '../Option';
 
 @Component({
   selector: 'app-prefectures',
@@ -13,7 +14,8 @@ import { PrefectureName } from '../PrefectureName';
   styleUrls: ['./prefectures.component.css'],
 })
 export class PrefecturesComponent implements OnInit {
-  prefectureNames: PrefectureName[] = [];
+  prefectures: Option[] = [];
+  selectee: Option[] = [];
 
   constructor(private prefectureService: PrefectureService) {}
 
@@ -22,14 +24,41 @@ export class PrefecturesComponent implements OnInit {
     this.getPrefectureNames();
   }
 
+  /**
+   * 県名の一覧を確保
+   * @return nothing
+   */
   getPrefectureNames(): void {
     this.prefectureService.getPrefectureNames().subscribe(
       (data) => {
-        this.prefectureNames = data.result;
+        const prefectureNames = data.result;
+        prefectureNames.forEach((element) =>
+          this.prefectures.push({
+            prefCode: element.prefCode,
+            prefName: element.prefName,
+            selected: false,
+          })
+        );
+        console.log(this.prefectures);
       },
       (err) => {
-        this.prefectureNames = err.result;
+        console.error(err);
       }
     );
+  }
+
+  /**
+   * チェックされた県idを取得して、APIに該当する県の人口データを取りに行く
+   * @return nothing
+   */
+  checkBox(): void {
+    this.prefectures.forEach((prefecture) => {
+      if ('selected' in prefecture && prefecture.selected) {
+        this.selectee.push(prefecture);
+      }
+    });
+
+    console.log(this.selectee);
+    this.selectee = [];
   }
 }

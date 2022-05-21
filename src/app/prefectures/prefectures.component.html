@@ -1,13 +1,16 @@
 <div id="prefectures">
   <p>都道府県</p>
   <div id="options">
-    <div class="option" *ngFor="let prefecture of prefectureNames">
+    <label class="option" *ngFor="let prefecture of prefectures; index as i">
       <input
         type="checkbox"
         name="{{ prefecture.prefName }}"
         id="{{ prefecture.prefCode }}"
+        [(ngModel)]="prefectures[i].selected"
+        [value]="prefecture.prefCode"
+        (change)="checkBox()"
       />
       {{ prefecture.prefName }}
-    </div>
+    </label>
   </div>
 </div>

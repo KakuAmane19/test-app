@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Data } from './Data';
 import { PrefectureName } from './PrefectureName';
@@ -18,7 +18,7 @@ export class PrefectureService {
       'X-API-KEY': '4h1WnyWHVxUtV5xvjNSqPj2cUjJXZyg5e7PNN7fo',
     }),
   };
-  result: PrefectureName[] = [{}];
+  result: PrefectureName[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -29,12 +29,6 @@ export class PrefectureService {
    * @see PrefectureName
    */
   getPrefectureNames(): Observable<Data> {
-    return this.http.get<Data>(this.apiUrl, this.httpOptions).pipe(
-      tap((data) => {
-        // console.log(data.message);
-        this.result = data.result;
-      }));
-
-    
+    return this.http.get<Data>(this.apiUrl, this.httpOptions);
   }
 }
