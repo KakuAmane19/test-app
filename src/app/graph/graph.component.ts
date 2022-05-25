@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked,DoCheck } from '@angular/core';
 
+import { PrefectureService } from '../prefecture.service';
 import { PopulationCompositionService } from '../population-composition.service';
 
-import { PrefecturePopulation } from '../PrefecturePopulationData';
+import { PrefecturePopulationDataFromAPI } from '../PrefecturePopulationDataFromAPI';
 import { Option } from '../Option';
 
 @Component({
@@ -10,24 +11,35 @@ import { Option } from '../Option';
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css'],
 })
-export class GraphComponent implements OnInit {
+export class GraphComponent implements OnInit, AfterViewChecked, DoCheck {
   selectees: Option[] = [];
   constructor(
+    private prefectureService: PrechoolService,
     private populationCompositionService: PopulationCompositionService
   ) {}
 
-  ngOnInit(): void {
-    this.getPrefecturePopulation();
+  ngOnInit(): void {}
+
+  ngDoCheck(): void {
+    this.prefectureService.getSelectees()
+    console.log('DoCheck');
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    console.log('AfterViewChecked');
   }
 
   /**
    * 対応する県の総人口を取ってくる
+   *
+   * @param  県名コード(prefCode)
    */
-  getPrefecturePopulation() {
-    this.populationCompositionService.getPrefecturePopulation().subscribe(
+  getPrefecturePopulation(/*hikisuu */) {
+    this.populationCompositionService.getPrefecturePopulation('46').subscribe(
       (data) => {
-        const prefecturePopulation: PrefecturePopulation =
-          data.result as PrefecturePopulation;
+        const prefecturePopulation = data.result;
         console.log(prefecturePopulation.data[0]);
       },
       (err) => {

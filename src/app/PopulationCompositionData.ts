@@ -1,4 +1,4 @@
-import { PrefecturePopulation } from './PrefecturePopulationData';
+import { PrefecturePopulation } from './PrefecturePopulationDataFromAPI';
 
 export interface PopulationCompositionData {
   message: string;

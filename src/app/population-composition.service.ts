@@ -4,8 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { PopulationCompositionData } from './PopulationCompositionData';
-import { PrefecturePopulation } from './PrefecturePopulationData';
+import { PrefecturePopulationDataFromAPI } from './PrefecturePopulationDataFromAPI';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +25,14 @@ export class PopulationCompositionService {
   /**
    * APIから該当する県の人口を取得
    *
-   * @return result - 県名（PrefectureName型）の配列
-   * @see PrefectureName
+   * @param  県名コード(prefCode)
+   * @return result - 任意の県の人口構成
    */
-  getPrefecturePopulation(): Observable<PopulationCompositionData> {
-    return this.http.get<PopulationCompositionData>(
+  getPrefecturePopulation(
+    prefCode: string
+  ): Observable<PrefecturePopulationDataFromAPI> {
+    this.query = '?' + 'prefCode=' + prefCode;
+    return this.http.get<PrefecturePopulationDataFromAPI>(
       this.apiUrl + this.query,
       this.httpOptions
     );

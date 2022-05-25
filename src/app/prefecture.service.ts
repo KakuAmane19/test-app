@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { PrefectureBaseData } from './PrefectureBaseData';
+import { PrefectureBaseDataFromAPI } from './PrefectureBaseDataFromAPI';
 import { Option } from './Option';
 
 @Injectable({
@@ -28,8 +28,11 @@ export class PrefectureService {
    * @return result - 県名（PrefectureName型）の配列
    * @see PrefectureName
    */
-  getPrefectureNames(): Observable<PrefectureBaseData> {
-    return this.http.get<PrefectureBaseData>(this.apiUrl, this.httpOptions);
+  getPrefectureNames(): Observable<PrefectureBaseDataFromAPI> {
+    return this.http.get<PrefectureBaseDataFromAPI>(
+      this.apiUrl,
+      this.httpOptions
+    );
   }
 
   /**
