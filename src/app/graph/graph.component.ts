@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked,DoCheck } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, DoCheck } from '@angular/core';
 
 import { PrefectureService } from '../prefecture.service';
 import { PopulationCompositionService } from '../population-composition.service';
@@ -11,24 +11,22 @@ import { Option } from '../Option';
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css'],
 })
-export class GraphComponent implements OnInit, AfterViewChecked, DoCheck {
-  selectees: Option[] = [];
+export class GraphComponent implements OnInit, AfterViewChecked {
+  selectees: Set<Option> = new Set([]);
+  preSelectees: Set<Option> = new Set([]);
   constructor(
-    private prefectureService: PrechoolService,
+    private prefectureService: PrefectureService,
     private populationCompositionService: PopulationCompositionService
   ) {}
 
   ngOnInit(): void {}
 
-  ngDoCheck(): void {
-    this.prefectureService.getSelectees()
-    console.log('DoCheck');
-  }
-
   ngAfterViewChecked(): void {
-    //Called after every check of the component's view. Applies to components only.
-    //Add 'implements AfterViewChecked' to the class.
-    console.log('AfterViewChecked');
+    this.selectees = new Set(this.prefectureService.getSelectee());
+
+    //増えてたらAPIから人口取得
+
+    console.log(this.selectees);
   }
 
   /**
