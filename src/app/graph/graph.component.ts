@@ -33,8 +33,6 @@ export class GraphComponent implements OnInit, AfterViewChecked {
 
   /**
    * グラフを作る
-   *
-   * @param  県名コード(prefCode)
    */
    makeGraph():void {
     this.selectees = new Set(this.prefectureService.getSelectee());
@@ -56,7 +54,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
   /**
    * 対応する県の総人口を取ってくる
    *
-   * @param  県名コード(prefCode)
+   * @param  新しく選択された県(Option)
    */
   getPrefecturePopulation(prefecture:Option) {
     this.populationCompositionService.getPrefecturePopulation(prefecture.prefCode.toString()).subscribe(
@@ -77,7 +75,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
   /**
    * 手持ちのデータから対応する県の総人口を取り除く
    *
-   * @param  県名コード(prefCode)
+   * @param  選択解除された県(Option)
    */
    deletePrefecturePopulation(prefecture:Option) {
      const result = this.prefecturePopulationData.filter((element)=>{
@@ -88,22 +86,20 @@ export class GraphComponent implements OnInit, AfterViewChecked {
 
   /**
    * グラフを描画する
-   *
-   * @param  県名コード(prefCode)
    */
    drawGraph():void {
     this.data = [
-      { Year: "2009", Europe: 31, China: 21, USA: 19 },
-      { Year: "2010", Europe: 43, China: 26, USA: 24 },
-      { Year: "2011", Europe: 66, China: 29, USA: 28 },
-      { Year: "2012", Europe: 69, China: 32, USA: 26 },
-      { Year: "2013", Europe: 58, China: 47, USA: 38 },
-      { Year: "2014", Europe: 40, China: 46, USA: 31 },
-      { Year: "2015", Europe: 78, China: 50, USA: 19 },
-      { Year: "2016", Europe: 13, China: 90, USA: 52 },
-      { Year: "2017", Europe: 78, China: 132, USA: 50 },
-      { Year: "2018", Europe: 40, China: 134, USA: 34 },
-      { Year: "2019", Europe: 80, China: 96, USA: 38 },
+      { Year: "2009", 鹿児島県: 31, China: 21, USA: 19 },
+      { Year: "2010", 鹿児島県: 43, China: 26, USA: 24 },
+      { Year: "2011", 鹿児島県: 66, China: 29, USA: 28 },
+      { Year: "2012", 鹿児島県: 69, China: 32, USA: 26 },
+      { Year: "2013", 鹿児島県: 58, China: 47, USA: 38 },
+      { Year: "2014", 鹿児島県: 40, China: 46, USA: 31 },
+      { Year: "2015", 鹿児島県: 78, China: 50, USA: 19 },
+      { Year: "2016", 鹿児島県: 13, China: 90, USA: 52 },
+      { Year: "2017", 鹿児島県: 78, China: 132, USA: 50 },
+      { Year: "2018", 鹿児島県: 40, China: 134, USA: 34 },
+      { Year: "2019", 鹿児島県: 80, China: 96, USA: 38 },
   ];
    }
 }

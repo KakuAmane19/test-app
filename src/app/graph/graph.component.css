@@ -4,3 +4,13 @@
   margin: 16px auto;
   background-color: whitesmoke;
 }
+
+@media screen and (max-width: 959px) {
+	/* 959px以下に適用されるCSS */
+  #graph {
+    width: 95%;
+    height: 256px;
+    margin: 16px auto;
+    background-color: whitesmoke;
+  }
+}
