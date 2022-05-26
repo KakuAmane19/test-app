@@ -1,10 +1,6 @@
-export interface Option {
+import { Population } from "./Population";
+export interface PrefecturePopulationData {
   prefCode: number;
   prefName: string;
-  populationData: Data[];
-}
-
-interface Data {
-  year: number;
-  population: number;
+  populationData: Population[];
 }

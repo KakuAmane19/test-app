@@ -1,2 +1,14 @@
 <app-prefectures></app-prefectures>
-<div id="graph"></div>
+<div class="options vertical">
+  <span id="legendTitle">県の総人口推移</span>
+  <igx-legend #legend orientation="horizontal"></igx-legend>
+</div>
+<div id="graph">
+  <igx-category-chart height="100%" width="100%"
+      [dataSource]="data"
+      [legend]="legend"
+      chartType="line"
+      yAxisTitle="総人口[人]"
+      yAxisTitleLeftMargin="5">
+  </igx-category-chart>
+</div>
