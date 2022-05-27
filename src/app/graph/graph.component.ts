@@ -27,7 +27,6 @@ export class GraphComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.detectChange();
-    this.makeGraph();
   }
 
   /**
@@ -46,6 +45,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
 
     this.preSelectees = this.selectees;
 
+    this.makeGraph();
    }
 
   /**
@@ -53,7 +53,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
    *
    * @param  新しく選択された県(Option)
    */
-  getPrefecturePopulation(prefecture:Option) {
+  getPrefecturePopulation(prefecture:Option):void {
     this.populationCompositionService.getPrefecturePopulation(prefecture.prefCode.toString()).subscribe(
       (data) => {
         const prefecturePopulation = data.result;
@@ -74,7 +74,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
    *
    * @param  選択解除された県(Option)
    */
-   deletePrefecturePopulation(prefecture:Option) {
+   deletePrefecturePopulation(prefecture:Option):void {
      const result = this.prefecturePopulationData.filter((element)=>{
        return element.prefCode != prefecture.prefCode
      });
@@ -86,6 +86,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
    */
    makeGraph():void {
     let viewData: any[] = [];
+    this.data = viewData;
     if(this.prefecturePopulationData.length > 0){
       //Year属性を使って表示用のデータ配列を作りながら長さを決定する
       this.prefecturePopulationData[0].populationData.forEach((prefecturePopulation)=>
@@ -96,7 +97,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
           object[prefecture.prefName] = prefecture.populationData[index].value;
         });
       });
-      console.log(viewData);
+      
     }else{
       viewData = [];
     }
