@@ -5,8 +5,6 @@ import { PopulationCompositionService } from '../population-composition.service'
 
 import { PrefecturePopulationData } from '../PrefecturePopulationData';
 import { Option } from '../Option';
-import { elementAt } from 'rxjs';
-import { year } from '@igniteui/material-icons-extended';
 
 @Component({
   selector: 'app-graph',
@@ -28,13 +26,14 @@ export class GraphComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {}
 
   ngAfterViewChecked(): void {
+    this.detectChange();
     this.makeGraph();
   }
 
   /**
-   * グラフを作る
+   * チェックボックスの変化を検知した後、把握する処理
    */
-   makeGraph():void {
+   detectChange():void {
     this.selectees = new Set(this.prefectureService.getSelectee());
     
     //増えてたらAPIから人口取得
@@ -47,8 +46,6 @@ export class GraphComponent implements OnInit, AfterViewChecked {
 
     this.preSelectees = this.selectees;
 
-    console.log(this.prefecturePopulationData);
-    this.drawGraph();
    }
 
   /**
@@ -85,21 +82,24 @@ export class GraphComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * グラフを描画する
+   * データを整えるグラフに表示
    */
-   drawGraph():void {
-    this.data = [
-      { Year: "2009", 鹿児島県: 31, China: 21, USA: 19 },
-      { Year: "2010", 鹿児島県: 43, China: 26, USA: 24 },
-      { Year: "2011", 鹿児島県: 66, China: 29, USA: 28 },
-      { Year: "2012", 鹿児島県: 69, China: 32, USA: 26 },
-      { Year: "2013", 鹿児島県: 58, China: 47, USA: 38 },
-      { Year: "2014", 鹿児島県: 40, China: 46, USA: 31 },
-      { Year: "2015", 鹿児島県: 78, China: 50, USA: 19 },
-      { Year: "2016", 鹿児島県: 13, China: 90, USA: 52 },
-      { Year: "2017", 鹿児島県: 78, China: 132, USA: 50 },
-      { Year: "2018", 鹿児島県: 40, China: 134, USA: 34 },
-      { Year: "2019", 鹿児島県: 80, China: 96, USA: 38 },
-  ];
+   makeGraph():void {
+    let viewData: any[] = [];
+    if(this.prefecturePopulationData.length > 0){
+      //Year属性を使って表示用のデータ配列を作りながら長さを決定する
+      this.prefecturePopulationData[0].populationData.forEach((prefecturePopulation)=>
+        viewData.push({Year:prefecturePopulation.year.toString()})
+      );
+      this.prefecturePopulationData.forEach((prefecture)=>{
+        viewData.forEach((object,index)=>{
+          object[prefecture.prefName] = prefecture.populationData[index].value;
+        });
+      });
+      console.log(viewData);
+    }else{
+      viewData = [];
+    }
+    this.data = viewData;
    }
 }
