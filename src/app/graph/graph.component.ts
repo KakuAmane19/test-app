@@ -75,6 +75,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
    * @param  選択解除された県(Option)
    */
    deletePrefecturePopulation(prefecture:Option):void {
+     setTimeout(()=>{},10)//getPrefecturePopulationとの非同期処理に関する対称性をとるために挿入
      const result = this.prefecturePopulationData.filter((element)=>{
        return element.prefCode != prefecture.prefCode
      });
@@ -102,5 +103,6 @@ export class GraphComponent implements OnInit, AfterViewChecked {
       viewData = [];
     }
     this.data = viewData;
+    
    }
 }
