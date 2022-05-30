@@ -30,7 +30,9 @@ export class GraphComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * チェックボックスの変化を検知した後、把握する処理
+   * チェックボックスの変化を検知
+   * @param nothing
+   * @return nothing
    */
    detectChange():void {
     this.selectees = new Set(this.prefectureService.getSelectee());
@@ -52,6 +54,8 @@ export class GraphComponent implements OnInit, AfterViewChecked {
    * 対応する県の総人口を取ってくる
    *
    * @param  新しく選択された県(Option)
+   * @return nothing
+   
    */
   getPrefecturePopulation(prefecture:Option):void {
     this.populationCompositionService.getPrefecturePopulation(prefecture.prefCode.toString()).subscribe(
@@ -73,6 +77,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
    * 手持ちのデータから対応する県の総人口を取り除く
    *
    * @param  選択解除された県(Option)
+   * @return nothing
    */
    deletePrefecturePopulation(prefecture:Option):void {
      setTimeout(()=>{},10)//getPrefecturePopulationとの非同期処理に関する対称性をとるために挿入
@@ -84,6 +89,9 @@ export class GraphComponent implements OnInit, AfterViewChecked {
 
   /**
    * データを整えるグラフに表示
+   * 
+   * @param nothing
+   * @return nothing
    */
    makeGraph():void {
     let viewData: any[] = [];

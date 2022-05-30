@@ -20,6 +20,7 @@ export class PrefecturesComponent implements OnInit {
 
   /**
    * 県名の一覧を確保
+   * @param nothing
    * @return nothing
    */
   getPrefectureNames(): void {
@@ -41,7 +42,9 @@ export class PrefecturesComponent implements OnInit {
   }
 
   /**
-   * チェックされた県idを取得して、APIに該当する県の人口データを取りに行く
+   * チェックボックスの監視
+   * チェックされている県の一覧を取得する
+   * @param nothing
    * @return nothing
    */
   checkBox(): void {
