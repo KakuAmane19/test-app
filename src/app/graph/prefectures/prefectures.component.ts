@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PrefectureService } from '../prefecture.service';
+import { PrefectureService } from '../../prefecture.service';
 
-import { Option } from '../Option';
+import { Option } from '../../Option';
 
 @Component({
   selector: 'app-prefectures',

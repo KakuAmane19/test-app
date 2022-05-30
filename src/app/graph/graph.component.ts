@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, DoCheck } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 
 import { PrefectureService } from '../prefecture.service';
 import { PopulationCompositionService } from '../population-composition.service';
@@ -16,6 +16,7 @@ export class GraphComponent implements OnInit, AfterViewChecked {
   preSelectees: Set<Option> = new Set([]);
 
   prefecturePopulationData:PrefecturePopulationData[] = [];
+  boundaryYear : number = 0;
   public data: any[] = [];
 
   constructor(
@@ -66,11 +67,23 @@ export class GraphComponent implements OnInit, AfterViewChecked {
           prefName:prefecture.prefName,
           populationData: prefecturePopulation.data[0].data,
         });
+        this.setBoundaryYear(prefecturePopulation.boundaryYear);
       },
       (err) => {
         console.error(err);
       }
     );
+  }
+
+  /**
+   * 推定に切り替わる年の更新
+   *
+   * @param  実測値と推定値の切り替わる年( boundaryYear )
+   * @return nothing
+   
+   */
+   setBoundaryYear(boundaryYear:number):void {
+     this.boundaryYear = boundaryYear;
   }
 
   /**
